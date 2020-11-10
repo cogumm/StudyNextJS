@@ -10,6 +10,12 @@ interface HomeProps {
   recomendedProducts: IProduct[];
 }
 export default function Home({ recomendedProducts }: HomeProps) {
+  async function handleSum() {
+    const math = (await import('../lib/math')).default;
+
+    alert(math.sum(2, 5));
+  }
+
   return (
     <div>
       <Title>Estou vivo!</Title>
@@ -27,8 +33,10 @@ export default function Home({ recomendedProducts }: HomeProps) {
           })}
         </ul>
       </section>
+
+      <button onClick={handleSum}>Sum</button>
     </div>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
