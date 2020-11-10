@@ -14,9 +14,14 @@ interface CategoryProps {
 export default function Category({ products }: CategoryProps) {
   const router = useRouter();
 
+  // Indica se a página está sendo gerada ou não.
+  if (router.isFallback) {
+    return <p>Carregando ..</p>
+  }
+
   return (
     <div>
-    <h1>{router.query.slug}</h1>
+      <h1>{router.query.slug}</h1>
 
       <ul>
         {products.map(product => {
@@ -44,7 +49,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    /**
+     * fallback: true
+     *   Sempre que o primeiro usuário tentar acessar uma rota que ainda não foi gerada estaticamente,
+     *   ele vai gerar automaticamente.
+     */
+    fallback: true,
   }
 }
 
@@ -61,3 +71,5 @@ export const getStaticProps: GetStaticProps<CategoryProps> = async (context) => 
     revalidate: 60,
   }
 }
+
+// fallback + revalidate = páginas estáticas "quase" dinâmicas
