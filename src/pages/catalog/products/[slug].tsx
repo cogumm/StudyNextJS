@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Prismic from 'prismic-javascript';
 import PrismicDOM from 'prismic-dom';
 import { client } from '~/lib/prismic';
 import { Document } from 'prismic-javascript/types/documents';
